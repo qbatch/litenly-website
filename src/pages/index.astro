@@ -10,7 +10,7 @@ import importShot from '../assets/screens/import.png';
 import editorShot from '../assets/screens/editor.png';
 import compareShot from '../assets/screens/compare.png';
 import galleryShot from '../assets/screens/gallery.png';
-import { site } from '../data/site';
+import { site, withBase } from '../data/site';
 
 const features: { icon: IconName; title: string; text: string }[] = [
   { icon: 'gauge', title: 'Quality you control', text: 'Choose Gentle, Balanced or Aggressive, or set the slider yourself. An estimate updates before you compress.' },
@@ -95,7 +95,7 @@ const jsonLd = {
           <li><Icon name="check" /><span><strong>Or compress in place.</strong> A verified smaller replacement is saved, then you review the original before it moves to Recently Deleted.</span></li>
           <li><Icon name="check" /><span><strong>PNG stays lossless.</strong> Pixels are checked to be identical, and results that are not smaller are skipped.</span></li>
         </ul>
-        <p><a href="/support#smart-gallery-guide">Read the Smart Gallery guide</a></p>
+        <p><a href={withBase('/support#smart-gallery-guide')}>Read the Smart Gallery guide</a></p>
       </div>
       <div class="shot">
         <PhoneFrame src={galleryShot} alt="Smart Gallery Select Photos screen with the steps Pick and scan, Choose plan, and Review" />

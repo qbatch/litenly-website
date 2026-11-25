@@ -3,6 +3,7 @@ import MainLayout from '../layouts/MainLayout.astro';
 import Container from '../components/Container.astro';
 import PageHeader from '../components/PageHeader.astro';
 import FAQ, { type Question } from '../components/FAQ.astro';
+import { withBase } from '../data/site';
 
 const topics = [
   { href: '#getting-started', label: 'Getting started' },
@@ -98,7 +99,7 @@ const faqs: Question[] = [
       <section id="faq">
         <h2>Frequently asked questions</h2>
         <FAQ items={faqs} />
-        <p class="more">Questions about data? Read the <a href="/privacy-policy">Privacy Policy</a>.</p>
+        <p class="more">Questions about data? Read the <a href={withBase('/privacy-policy')}>Privacy Policy</a>.</p>
       </section>
     </Container>
   </div>

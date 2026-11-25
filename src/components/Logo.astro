@@ -1,11 +1,11 @@
 ---
 import { Image } from 'astro:assets';
 import mark from '../assets/litenly-mark.png';
-import { site } from '../data/site';
+import { site, withBase } from '../data/site';
 interface Props { size?: number }
 const { size = 36 } = Astro.props;
 ---
-<a class="logo" href="/">
+<a class="logo" href={withBase('/')}>
   <Image src={mark} alt="" width={size} height={size} densities={[1, 2, 3]} loading="eager" />
   <span>{site.name}</span>
 </a>

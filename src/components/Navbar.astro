@@ -2,23 +2,23 @@
 import Container from './Container.astro';
 import Button from './Button.astro';
 import Logo from './Logo.astro';
-import { navLinks, site } from '../data/site';
-const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+import { navLinks, site, withBase } from '../data/site';
+const path = Astro.url.pathname.replace(/\/$/, '');
 const cta = site.appStoreUrl
   ? { href: site.appStoreUrl, label: 'Download App' }
-  : { href: '/#features', label: 'Explore App' };
+  : { href: withBase('/#features'), label: 'Explore App' };
 ---
 <header class="header">
   <Container class="bar">
     <Logo />
     <nav class="desktop" aria-label="Main">
-      {navLinks.map((l) => <a href={l.href} aria-current={path === l.href ? 'page' : undefined}>{l.label}</a>)}
+      {navLinks.map((l) => <a href={l.href} aria-current={path === l.href.replace(/\/$/, '') ? 'page' : undefined}>{l.label}</a>)}
       <Button href={cta.href} size="sm">{cta.label}</Button>
     </nav>
     <details class="mobile">
       <summary aria-label="Menu"><span></span><span></span><span></span></summary>
       <nav aria-label="Main">
-        {navLinks.map((l) => <a href={l.href} aria-current={path === l.href ? 'page' : undefined}>{l.label}</a>)}
+        {navLinks.map((l) => <a href={l.href} aria-current={path === l.href.replace(/\/$/, '') ? 'page' : undefined}>{l.label}</a>)}
         <Button href={cta.href}>{cta.label}</Button>
       </nav>
     </details>

@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import Container from './Container.astro';
 import Button from './Button.astro';
 import mark from '../assets/litenly-mark.png';
-import { site } from '../data/site';
+import { site, withBase } from '../data/site';
 ---
 <section class="section">
   <Container>
@@ -14,8 +14,8 @@ import { site } from '../data/site';
       <div class="actions">
         {site.appStoreUrl
           ? <Button href={site.appStoreUrl} variant="light">Download on the App Store</Button>
-          : <Button href="/support" variant="light">Read the usage guide</Button>}
-        <Button href="/privacy-policy" variant="ghost-light">How your data is handled</Button>
+          : <Button href={withBase('/support')} variant="light">Read the usage guide</Button>}
+        <Button href={withBase('/privacy-policy')} variant="ghost-light">How your data is handled</Button>
       </div>
       {!site.appStoreUrl && <p class="note">The App Store link will appear here once Litenly is listed.</p>}
     </div>

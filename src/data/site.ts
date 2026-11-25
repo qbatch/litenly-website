@@ -10,8 +10,11 @@ export const site = {
   appStoreUrl: '',
 };
 
+/** Prefixes a root path with the deploy base, for hosts that serve the site from a subfolder. */
+export const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path}`;
+
 export const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/support', label: 'Support' },
-  { href: '/privacy-policy', label: 'Privacy Policy' },
+  { href: withBase('/'), label: 'Home' },
+  { href: withBase('/support'), label: 'Support' },
+  { href: withBase('/privacy-policy'), label: 'Privacy Policy' },
 ];
