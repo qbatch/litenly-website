@@ -40,7 +40,7 @@ const title = (id: string) => `${num(id)}. ${sections[num(id) - 1][1]}`;
 
       <article>
         <h2 id="introduction">{title('introduction')}</h2>
-        <p>This policy covers the {site.fullName} app for iPhone (bundle identifier <code>{site.bundleId}</code>) and this website. In this policy, “we” and “us” mean the publisher of the app.</p>
+        <p>This policy covers the {site.fullName} app for iPhone and this website. In this policy, “we” and “us” mean the publisher of the app.</p>
         <p>In short: the app processes your files on your iPhone. It has no user accounts, advertising, analytics tools or crash-reporting tools from third parties, and it does not upload your photos or documents to us.</p>
 
         <h2 id="information-we-collect">{title('information-we-collect')}</h2>
@@ -124,6 +124,5 @@ const title = (id: string) => `${num(id)}. ${sections[num(id) - 1][1]}`;
   article h2 { font-size: 1.4rem; margin-top: 3rem; padding-top: 0.25rem; }
   article h3 { margin-top: 1.75rem; }
   li { margin-bottom: 0.45rem; }
-  code { font-size: 0.9em; background: var(--green-tint); padding: 0.1em 0.35em; border-radius: 5px; overflow-wrap: anywhere; }
   @media (max-width: 560px) { .toc ol { columns: 1; } }
 </style>
