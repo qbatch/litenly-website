@@ -1,0 +1,121 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Container from '../components/Container.astro';
+import PageHeader from '../components/PageHeader.astro';
+import FAQ, { type Question } from '../components/FAQ.astro';
+
+const topics = [
+  { href: '#getting-started', label: 'Getting started' },
+  { href: '#smart-gallery-guide', label: 'Smart Gallery' },
+  { href: '#troubleshooting', label: 'Troubleshooting' },
+  { href: '#faq', label: 'FAQ' },
+];
+
+const troubleshooting: Question[] = [
+  { q: 'It says my file is already optimized', a: 'The file could not be made smaller at the same resolution with those settings, and your original is unchanged. Apply the suggested fix, choose a lower quality or another format, or reduce the dimensions.' },
+  { q: 'The size limit could not be met', a: 'A size limit lowers quality step by step and does not resize on its own. Raise the limit, choose smaller dimensions, switch to JPEG or HEIC, or apply the fix Litenly suggests.' },
+  { q: 'My PDF could not be made smaller', a: '“Keep text & graphics” only recompresses the pictures inside a document, so a text-only PDF has little to save. “Rasterize pages” reaches smaller sizes, but text can no longer be selected or searched.' },
+  { q: 'My PNG barely shrinks', a: 'PNG is lossless, so little or no saving is normal. For a much smaller file, export a single image as HEIC or JPEG. In Smart Gallery, photos keep their format and PNGs with too small a saving are skipped.' },
+  { q: 'I am asked about transparency', a: 'JPEG and HEIC output cannot keep transparent areas. Keep PNG to preserve them, or choose a background colour to flatten the image.' },
+  { q: 'Smart Gallery cannot see some photos', a: 'With Limited Access, iOS only lets Litenly work with the photos you have shared. Use “Share more photos” in the chooser, or change access in the iOS Settings app under Litenly, then Photos.' },
+  { q: 'A photo stored in iCloud is not processed', a: 'Smart Gallery does not download iCloud-only originals. Open the photo in the Photos app so it downloads to your iPhone, then try again.' },
+  { q: 'My free space did not increase', a: 'Saving a copy adds a file. Space is freed only after originals are removed, and Photos keeps removed items in Recently Deleted for about 30 days. You can delete them permanently in the Photos app. That cannot be undone.' },
+  { q: 'A reminder or storage alert did not arrive', a: 'Check that notifications are allowed for Litenly in iOS Settings. The low-storage alert is checked when the app is open and only sometimes in the background, because iOS decides when background checks run.' },
+  { q: 'Saving to Photos fails', a: 'Allow Litenly to add photos in the iOS Settings app and make sure your iPhone has free storage. You can also use Save to Files or Share.' },
+];
+
+const faqs: Question[] = [
+  { q: 'Are my photos uploaded anywhere?', a: 'No. Litenly compresses files on your iPhone and does not upload them. If you save or share a result to another app or cloud service, that service handles the copy you send.' },
+  { q: 'Which files can I open?', a: 'JPEG, PNG and HEIC images from Photos or Files, and PDF documents from Files.' },
+  { q: 'Which formats can I export?', a: 'JPEG, PNG, PDF, and HEIC on devices that support HEIC encoding. A multi-page PDF exported as images creates one file per page.' },
+  { q: 'Does compressing change my original file?', a: 'Not when you compress a single photo or file: Litenly creates a new file. The exception you opt into is Compress in Place in Smart Gallery, described above.' },
+  { q: 'Will compression reduce quality?', a: 'JPEG and HEIC compression is lossy, so lower quality settings can soften detail. Use the comparison view to check before saving. PNG compression is lossless.' },
+  { q: 'What happens to location data and other metadata?', a: 'Single-image compression removes metadata and location by default, and you can choose to keep supported metadata in the advanced options. A file already within your limits may be used as it is, with its metadata. Smart Gallery has its own list of kept details, shown before you confirm.' },
+  { q: 'Does Smart Gallery compress videos or Live Photos?', a: 'No. Videos are ignored and Live Photos are not processed.' },
+  { q: 'Can I restore an original I removed?', a: 'Yes, while Photos still keeps it. In the Photos app open Recently Deleted, select the item and tap Recover. Recently Deleted is not a backup.' },
+  { q: 'How do I remove the data Litenly keeps?', a: 'Open Settings in the app and choose Clear All Data. It removes history, scan results, settings, reminders and temporary files. Your photos and saved copies stay.' },
+  { q: 'Which devices are supported?', a: 'iPhone with iOS 17 or later.' },
+];
+---
+<MainLayout title="Support and FAQ | Litenly" description="Usage guides, troubleshooting and answers to common questions about compressing photos and PDFs with Litenly on iPhone.">
+  <PageHeader title="How can we help?">
+    <p>Guides, fixes and answers for using Litenly on your iPhone.</p>
+  </PageHeader>
+
+  <div class="section">
+    <Container narrow>
+      <nav class="topics" aria-label="Support topics">
+        {topics.map((t) => <a href={t.href}>{t.label}</a>)}
+      </nav>
+
+      <div class="note">
+        <h2>Where to find help</h2>
+        <p>This page is the guide to Litenly. Inside the app, short notes on each screen explain your options, and when a compression cannot meet your settings the app explains why and, where it can, offers a fix.</p>
+        <p>There is no support email or contact form at the moment.</p>
+      </div>
+
+      <section id="getting-started">
+        <h2>Getting started</h2>
+        <h3>Compress a photo or image file</h3>
+        <ol>
+          <li>Tap <strong>Select Photo</strong>, or <strong>Select from Files</strong>.</li>
+          <li>Check the format, pixel size and file size, then continue to the editor.</li>
+          <li>Pick a quality preset or move the slider. Optionally set a size limit, dimensions, crop or output format.</li>
+          <li>Tap <strong>Compress image</strong> and compare the result with the original.</li>
+          <li>Continue to save, then choose Save to Files, Photos or Share.</li>
+        </ol>
+        <h3>Compress a PDF</h3>
+        <ol>
+          <li>Tap <strong>Select from Files</strong> and open the PDF.</li>
+          <li>Choose the output. For a PDF, pick <strong>Keep text &amp; graphics</strong> or <strong>Rasterize pages</strong>.</li>
+          <li>Set a quality or size limit, compress, check the preview and save.</li>
+        </ol>
+        <h3>Useful tips</h3>
+        <ul>
+          <li>Start with a higher quality and lower it only if the file is still too large.</li>
+          <li>Zoom in on the comparison to check faces and small text.</li>
+          <li>Choose JPEG when the file must open almost anywhere.</li>
+        </ul>
+      </section>
+
+      <section id="smart-gallery-guide">
+        <h2>Using Smart Gallery</h2>
+        <ol>
+          <li>Open <strong>Smart Gallery</strong> and tap <strong>Choose photos</strong> or <strong>Scan Full Gallery</strong>. iOS asks for photo access when it is needed.</li>
+          <li>Wait for the scan. It estimates savings and changes nothing.</li>
+          <li>Choose a plan: <strong>Copy</strong> saves smaller copies next to your originals. <strong>Compress in Place</strong> saves a verified smaller replacement.</li>
+          <li>Review the selection and confirm.</li>
+          <li>Optionally review originals. Only the ones you select, confirm and approve in the Photos prompt move to Recently Deleted.</li>
+        </ol>
+        <p>Compress in Place keeps date and time, location, favourite status, regular albums and hidden status. It does not keep captions, keywords, shared albums or edit history. With Limited Access, details cannot be copied from an original that Photos hides. Keep a backup of photos you cannot afford to lose.</p>
+      </section>
+
+      <section id="troubleshooting">
+        <h2>Troubleshooting</h2>
+        <FAQ items={troubleshooting} />
+      </section>
+
+      <section id="faq">
+        <h2>Frequently asked questions</h2>
+        <FAQ items={faqs} />
+        <p class="more">Questions about data? Read the <a href="/privacy-policy">Privacy Policy</a>.</p>
+      </section>
+    </Container>
+  </div>
+</MainLayout>
+
+<style>
+  .topics { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin-bottom: 2.5rem; }
+  .topics a { min-height: 44px; display: inline-flex; align-items: center; padding: 0 1.1rem; border-radius: 99px; background: var(--surface); border: 1px solid var(--line); font-weight: 650; font-size: 0.925rem; text-decoration: none; color: var(--ink); }
+  .topics a:hover { border-color: var(--green); color: var(--green); }
+  .note { background: var(--green-tint); border-radius: var(--radius); padding: 1.5rem; }
+  .note h2 { font-size: 1.25rem; }
+  .note p:last-child { margin: 0; }
+  section { margin-top: 3.5rem; }
+  section h2 { font-size: clamp(1.5rem, 1.3rem + 0.9vw, 1.9rem); margin-bottom: 1.25rem; }
+  section h3 { margin-top: 1.75rem; }
+  ol, ul { padding-left: 1.35rem; }
+  li { margin-bottom: 0.5rem; }
+  li::marker { color: var(--green); font-weight: 700; }
+  .more { margin-top: 1.5rem; }
+</style>

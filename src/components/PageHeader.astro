@@ -1,0 +1,18 @@
+---
+import Container from './Container.astro';
+interface Props { title: string }
+const { title } = Astro.props;
+---
+<div class="page-header">
+  <Container narrow>
+    <h1>{title}</h1>
+    <div class="intro"><slot /></div>
+  </Container>
+</div>
+<style>
+  .page-header { background: radial-gradient(80% 90% at 0% 0%, rgb(54 190 170 / 0.4), transparent 60%), var(--brand); color: #fff; padding-block: clamp(3rem, 7vw, 5rem); text-align: center; }
+  h1 { font-size: clamp(2.1rem, 1.5rem + 2.6vw, 3.25rem); }
+  .intro { color: #dcebf0; font-size: 1.1rem; }
+  .intro :global(p:last-child) { margin: 0; }
+  .intro :global(a) { color: #fff; }
+</style>

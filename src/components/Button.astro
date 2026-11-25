@@ -1,0 +1,23 @@
+---
+interface Props { href: string; variant?: 'primary' | 'secondary' | 'light' | 'ghost-light'; size?: 'md' | 'sm' }
+const { href, variant = 'primary', size = 'md' } = Astro.props;
+---
+<a href={href} class:list={['btn', variant, size]}><slot /></a>
+<style>
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    min-height: 48px; padding: 0.7rem 1.4rem; border-radius: 12px; border: 1px solid transparent;
+    font-weight: 700; font-size: 0.975rem; line-height: 1.2; text-decoration: none; text-align: center;
+    transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .sm { min-height: 44px; padding: 0.5rem 1rem; font-size: 0.9rem; }
+  .primary { background: var(--green); color: #fff; box-shadow: 0 8px 20px -10px rgb(18 112 79 / 0.8); }
+  .primary:hover { background: var(--green-dark); color: #fff; }
+  .secondary { background: var(--surface); color: var(--ink); border-color: var(--line); }
+  .secondary:hover { color: var(--ink); border-color: #b5cbc3; }
+  .light { background: #fff; color: #10294f; box-shadow: 0 10px 30px -12px rgb(0 0 0 / 0.5); }
+  .light:hover { background: #eef7f2; color: #10294f; }
+  .ghost-light { color: #fff; border-color: rgb(255 255 255 / 0.4); }
+  .ghost-light:hover { color: #fff; background: rgb(255 255 255 / 0.12); }
+</style>

@@ -1,0 +1,62 @@
+---
+import Container from './Container.astro';
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+import PhoneFrame from './PhoneFrame.astro';
+import compare from '../assets/screens/compare.png';
+import home from '../assets/screens/home.png';
+import { site } from '../data/site';
+---
+<section class="hero">
+  <Container class="grid">
+    <div class="copy">
+      <p class="pill">Photo and PDF compressor for iPhone</p>
+      <h1>Lighter files.<br /><span>Simpler life.</span></h1>
+      <p class="lead">Litenly shrinks photos and PDFs right on your iPhone. Pick a quality or a size limit, compare the result with the original, then save or share it.</p>
+      <div class="actions">
+        {site.appStoreUrl
+          ? <Button href={site.appStoreUrl} variant="light">Download on the App Store</Button>
+          : <Button href="#features" variant="light">Explore features <Icon name="arrow" size={18} /></Button>}
+        <Button href="#how-it-works" variant="ghost-light">See how it works</Button>
+      </div>
+      <ul class="facts">
+        <li><Icon name="check" size={18} /> Compresses on your device</li>
+        <li><Icon name="check" size={18} /> JPEG, PNG, HEIC and PDF</li>
+        <li><Icon name="check" size={18} /> iOS 17 or later</li>
+      </ul>
+    </div>
+    <div class="visual">
+      <PhoneFrame src={home} alt="Litenly home screen with Select Photo, Select from Files and Smart Gallery options" eager class="back" />
+      <PhoneFrame src={compare} alt="Litenly export preview comparing an original and a compressed waterfall photo with a sliding divider" eager class="front" />
+    </div>
+  </Container>
+</section>
+<style>
+  .hero { position: relative; overflow: hidden; color: #fff; background: radial-gradient(90% 70% at 0% 0%, rgb(54 190 170 / 0.45), transparent 60%), var(--brand); padding-block: clamp(3.5rem, 7vw, 6rem) 0; }
+  .hero :global(.grid) { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 3rem; align-items: center; }
+  .copy { padding-bottom: clamp(3.5rem, 7vw, 6rem); }
+  .pill { display: inline-block; padding: 0.35rem 0.9rem; border-radius: 99px; background: rgb(255 255 255 / 0.12); border: 1px solid rgb(255 255 255 / 0.22); font-size: 0.875rem; font-weight: 600; margin-bottom: 1.5rem; }
+  h1 span { color: var(--leaf); }
+  .lead { font-size: clamp(1.05rem, 1rem + 0.4vw, 1.25rem); color: #dcebf0; max-width: 34rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+  .facts { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; list-style: none; padding: 0; margin: 2rem 0 0; font-size: 0.925rem; color: #dcebf0; }
+  .facts li { display: flex; align-items: center; gap: 0.4rem; }
+  .facts :global(svg) { color: var(--leaf); }
+  .visual { align-self: end; position: relative; height: 560px; }
+  .visual :global(.phone) { position: absolute; width: 270px; }
+  .visual :global(.front) { right: 4%; top: 0; z-index: 2; }
+  .visual :global(.back) { left: 0; top: 70px; transform: rotate(-6deg); opacity: 0.96; }
+  @media (max-width: 920px) {
+    .hero :global(.grid) { grid-template-columns: 1fr; text-align: center; gap: 0; }
+    .copy { padding-bottom: 3rem; }
+    .lead { margin-inline: auto; }
+    .actions, .facts { justify-content: center; }
+    .visual { width: min(460px, 100%); margin-inline: auto; height: clamp(330px, 88vw, 500px); }
+    .visual :global(.phone) { width: 54%; }
+    .visual :global(.back) { left: 3%; top: 12%; }
+    .visual :global(.front) { right: 3%; }
+  }
+  @media (max-width: 480px) {
+    .actions { flex-direction: column; }
+  }
+</style>

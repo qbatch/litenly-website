@@ -1,0 +1,29 @@
+---
+import Container from './Container.astro';
+import Logo from './Logo.astro';
+import { navLinks, site } from '../data/site';
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <Container>
+    <div class="top">
+      <div class="about">
+        <Logo />
+        <p>{site.tagline} Compress photos and PDFs on your iPhone.</p>
+      </div>
+      <nav aria-label="Footer">
+        {navLinks.map((l) => <a href={l.href}>{l.label}</a>)}
+      </nav>
+    </div>
+    <p class="legal">© {year} {site.name}. Apple, iPhone and App Store are trademarks of Apple Inc.</p>
+  </Container>
+</footer>
+<style>
+  .footer { background: #0b1a22; color: #e7f0ee; padding-block: 3.5rem 2rem; }
+  .top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem; padding-bottom: 2rem; border-bottom: 1px solid rgb(255 255 255 / 0.12); }
+  .about p { color: #a9bdc0; max-width: 34ch; margin: 0.75rem 0 0; }
+  nav { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0.5rem 2rem; }
+  nav a { color: #e7f0ee; text-decoration: none; font-weight: 600; padding: 0.6rem 0; }
+  nav a:hover { color: var(--leaf); }
+  .legal { margin: 1.5rem 0 0; font-size: 0.85rem; color: #8ba3a7; }
+</style>

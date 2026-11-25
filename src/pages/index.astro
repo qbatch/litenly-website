@@ -1,0 +1,154 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Container from '../components/Container.astro';
+import Hero from '../components/Hero.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import PhoneFrame from '../components/PhoneFrame.astro';
+import Icon, { type IconName } from '../components/Icon.astro';
+import CTA from '../components/CTA.astro';
+import importShot from '../assets/screens/import.png';
+import editorShot from '../assets/screens/editor.png';
+import compareShot from '../assets/screens/compare.png';
+import galleryShot from '../assets/screens/gallery.png';
+import { site } from '../data/site';
+
+const features: { icon: IconName; title: string; text: string }[] = [
+  { icon: 'gauge', title: 'Quality you control', text: 'Choose Gentle, Balanced or Aggressive, or set the slider yourself. An estimate updates before you compress.' },
+  { icon: 'target', title: 'Optional size limit', text: 'Need a file under a set size? Enter a maximum in KB or MB. Litenly measures real encodes against your limit.' },
+  { icon: 'compare', title: 'Compare before saving', text: 'Slide between the original and the compressed version, zoom in, and check the measured file size.' },
+  { icon: 'file', title: 'Photos and PDFs', text: 'Open JPEG, PNG, HEIC and PDF files. Export as JPEG, PNG, HEIC (on supported devices) or PDF.' },
+  { icon: 'crop', title: 'Resize and crop', text: 'Keep the original resolution, fit within a longest edge, or set an exact width and height.' },
+  { icon: 'grid', title: 'Smart Gallery', text: 'Scan chosen photos or your full library to find what could take less space. Scanning changes nothing.' },
+  { icon: 'location', title: 'Metadata choices', text: 'Strip metadata and remove location data from single-image exports, or keep supported metadata.' },
+  { icon: 'history', title: 'History on your iPhone', text: 'Find recent compressions again, search them, and clear them whenever you like.' },
+  { icon: 'bell', title: 'Reminders and alerts', text: 'Optionally set clean-up reminders or a low-storage alert. They never compress or delete anything.' },
+];
+
+const steps = [
+  { title: 'Choose a file', text: 'Select a photo from your library, or open an image or PDF from Files.', shot: importShot, alt: 'Import screen showing a photo with its format, pixel dimensions and file size' },
+  { title: 'Set quality and size', text: 'Pick a quality preset. Add a size limit, new dimensions or another format if you need them.', shot: editorShot, alt: 'Editor screen with dimensions, format, estimated size and quality presets' },
+  { title: 'Compare and save', text: 'Check the result side by side, then save it to Files or Photos, or share it.', shot: compareShot, alt: 'Export preview with a slider comparing the original and compressed photo' },
+];
+
+const benefits = [
+  { title: 'Your files are processed on your iPhone', text: 'There is no account to create and no upload step. Litenly does not send your photos or documents to a server of ours.' },
+  { title: 'Your original stays safe', text: 'Compressing a single file creates a new one. The file you chose is not modified or replaced.' },
+  { title: 'Honest results', text: 'If a file cannot be made smaller with your settings, Litenly says so and suggests a fix. Nothing changes until you apply it.' },
+  { title: 'You approve every removal', text: 'In Smart Gallery, an original goes to Recently Deleted only after you review it, confirm, and approve the prompt from Photos.' },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MobileApplication',
+  name: site.fullName,
+  operatingSystem: 'iOS 17 or later',
+  applicationCategory: 'UtilitiesApplication',
+  description: site.description,
+};
+---
+<MainLayout title="Litenly: Photo Compressor for iPhone" description={site.description}>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+  <Hero />
+
+  <section class="section" id="features">
+    <Container>
+      <div class="section-head">
+        <span class="eyebrow">Features</span>
+        <h2>Everything you need to slim a file</h2>
+        <p>From one oversized photo to a crowded library.</p>
+      </div>
+      <div class="features">
+        {features.map((f) => <FeatureCard icon={f.icon} title={f.title}>{f.text}</FeatureCard>)}
+      </div>
+    </Container>
+  </section>
+
+  <section class="section alt" id="how-it-works">
+    <Container>
+      <div class="section-head">
+        <span class="eyebrow">How it works</span>
+        <h2>Three steps to a smaller file</h2>
+        <p>Open the app and start. No sign-up.</p>
+      </div>
+      <ol class="steps">
+        {steps.map((s, i) => (
+          <li>
+            <span class="num" aria-hidden="true">{i + 1}</span>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+            <PhoneFrame src={s.shot} alt={s.alt} />
+          </li>
+        ))}
+      </ol>
+    </Container>
+  </section>
+
+  <section class="section" id="smart-gallery">
+    <Container class="showcase">
+      <div>
+        <span class="eyebrow">Smart Gallery</span>
+        <h2>Find space hiding in your photo library</h2>
+        <p class="soft">Smart Gallery guides you from choosing photos to reviewing the result. It ignores videos.</p>
+        <ul class="checks">
+          <li><Icon name="check" /><span><strong>Scan first.</strong> See estimated savings before anything is written.</span></li>
+          <li><Icon name="check" /><span><strong>Make copies.</strong> Save smaller copies next to your originals, in the same format.</span></li>
+          <li><Icon name="check" /><span><strong>Or compress in place.</strong> A verified smaller replacement is saved, then you review the original before it moves to Recently Deleted.</span></li>
+          <li><Icon name="check" /><span><strong>PNG stays lossless.</strong> Pixels are checked to be identical, and results that are not smaller are skipped.</span></li>
+        </ul>
+        <p><a href="/support#smart-gallery-guide">Read the Smart Gallery guide</a></p>
+      </div>
+      <div class="shot">
+        <PhoneFrame src={galleryShot} alt="Smart Gallery Select Photos screen with the steps Pick and scan, Choose plan, and Review" />
+      </div>
+    </Container>
+  </section>
+
+  <section class="section alt" id="why">
+    <Container>
+      <div class="section-head">
+        <span class="eyebrow">Why Litenly</span>
+        <h2>Careful with your files by design</h2>
+      </div>
+      <div class="benefits">
+        {benefits.map((b) => (
+          <div>
+            <Icon name="shield" size={26} />
+            <h3>{b.title}</h3>
+            <p>{b.text}</p>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <CTA />
+</MainLayout>
+
+<style>
+  .alt { background: var(--surface); border-block: 1px solid var(--line); }
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; list-style: none; margin: 0; padding: 0; }
+  .steps li { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .steps p { color: var(--ink-soft); max-width: 32ch; flex: 1; }
+  .steps li :global(.phone) { max-width: 260px; margin-top: 1rem; }
+  .num { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--brand); color: #fff; font-weight: 800; margin-bottom: 1rem; }
+  #smart-gallery :global(.showcase) { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 4rem; align-items: center; }
+  .soft { color: var(--ink-soft); font-size: 1.075rem; }
+  .checks { list-style: none; padding: 0; margin: 1.75rem 0; display: grid; gap: 1rem; }
+  .checks li { display: flex; gap: 0.75rem; align-items: flex-start; }
+  .checks :global(svg) { flex: none; color: var(--green); margin-top: 2px; }
+  .shot { display: flex; justify-content: center; padding: 3rem 1.5rem; border-radius: var(--radius-l); background: var(--brand); }
+  .benefits { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem 4rem; }
+  .benefits > div { border-top: 2px solid var(--line); padding-top: 1.5rem; }
+  .benefits :global(svg) { color: var(--green); margin-bottom: 0.75rem; }
+  .benefits p { color: var(--ink-soft); margin: 0; }
+  @media (max-width: 920px) {
+    .features { grid-template-columns: repeat(2, 1fr); }
+    .steps { grid-template-columns: 1fr; gap: 4rem; }
+    #smart-gallery :global(.showcase) { grid-template-columns: 1fr; gap: 2rem; }
+  }
+  @media (max-width: 620px) {
+    .features, .benefits { grid-template-columns: 1fr; }
+    .benefits { gap: 1.75rem; }
+  }
+</style>
