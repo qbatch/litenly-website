@@ -5,7 +5,7 @@ import PageHeader from '../components/PageHeader.astro';
 import { site } from '../data/site';
 
 // Change this date whenever the policy text changes.
-const updated = { iso: '2026-11-25', label: '25 November 2026' };
+const updated = { iso: '2026-11-27', label: '27 November 2026' };
 
 const sections = [
   ['introduction', 'Introduction'],
@@ -47,11 +47,18 @@ const title = (id: string) => `${num(id)}. ${sections[num(id) - 1][1]}`;
         <p>The app does not send information to us. To do its job, it accesses and stores the following <strong>on your device</strong>:</p>
         <ul>
           <li><strong>Files you choose:</strong> photos, image files and PDF documents that you open for compression.</li>
-          <li><strong>Photo library:</strong> if you use Smart Gallery, the app reads the photos you choose, or your library if you scan it, and writes new copies or replacements when you confirm. Saving a result to Photos requires permission to add photos.</li>
-          <li><strong>Image metadata:</strong> details embedded in a file, such as format, dimensions, date and location. Single-image compression removes metadata and location by default; you can choose to keep supported metadata. A file already within your limits may be used as it is. Compress in Place keeps date and time, location, favourite status, regular albums and hidden status where iOS allows.</li>
+          <li><strong>Photo library:</strong> saving the result of a library photo needs Photos access, as do deleting a photo you confirm and using Smart Gallery, which reads the photos you choose, or your library if you scan it.</li>
+          <li><strong>Image metadata:</strong> details embedded in a file, such as format, dimensions, date and location. How they are handled depends on where the result goes, as described below.</li>
           <li><strong>Compression history:</strong> file names, sizes, dimensions, dates, where a result was saved, copies of compressed outputs and small preview thumbnails.</li>
           <li><strong>Smart Gallery records:</strong> photo identifiers, file sizes and a record of the jobs, copies and replacements, so the app can verify results and avoid repeating work.</li>
           <li><strong>Preferences and temporary files:</strong> settings such as appearance, remembered photo choices, reminder and alert settings, and working files created during compression.</li>
+        </ul>
+
+        <h3>Metadata and location</h3>
+        <ul>
+          <li><strong>Saved to Files or shared:</strong> for single photos, metadata and location are removed by default. You can choose to keep supported metadata.</li>
+          <li><strong>Files already within your limit:</strong> such a file may be used as it is, with its metadata.</li>
+          <li><strong>Saved back to your photo library:</strong> a copy made from a library photo keeps the original’s date, location, favourite status and regular albums.</li>
         </ul>
 
         <h2 id="personal-information">{title('personal-information')}</h2>
@@ -65,7 +72,7 @@ const title = (id: string) => `${num(id)}. ${sections[num(id) - 1][1]}`;
         <p>Information on your device is used only to provide app features:</p>
         <ul>
           <li>compressing, resizing, converting and previewing your files;</li>
-          <li>estimating possible savings and verifying copies and replacements;</li>
+          <li>estimating possible savings and checking copies and replacements;</li>
           <li>showing history and your settings;</li>
           <li>sending the local reminders and low-storage alerts you turn on.</li>
         </ul>
@@ -75,7 +82,7 @@ const title = (id: string) => `${num(id)}. ${sections[num(id) - 1][1]}`;
         <p>Smart Gallery does not download photos that exist only in iCloud. When you pick a photo with the iOS photo picker, iOS may download it from iCloud so it can be provided to the app.</p>
         <h3>Permissions</h3>
         <ul>
-          <li><strong>Photos:</strong> to read the photos used by Smart Gallery and to save results. You can grant limited access, or change access at any time in iOS Settings.</li>
+          <li><strong>Photos:</strong> to save the results of library photos, to delete an original or a copy only after you confirm, and to read the photos used by Smart Gallery. You can change access at any time in iOS Settings.</li>
           <li><strong>Notifications:</strong> only for reminders and low-storage alerts. These are created on your device.</li>
           <li><strong>Background refresh:</strong> to check free storage for the optional low-storage alert.</li>
         </ul>

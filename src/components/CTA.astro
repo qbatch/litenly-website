@@ -10,14 +10,13 @@ import { site, withBase } from '../data/site';
     <div class="cta">
       <Image src={mark} alt="" width={88} height={88} densities={[1, 2, 3]} />
       <h2>Make room without guessing</h2>
-      <p>See the measured size and compare the picture before you save it.</p>
+      <p>See the new file size and compare it with the original.</p>
       <div class="actions">
         {site.appStoreUrl
           ? <Button href={site.appStoreUrl} variant="light">Download on the App Store</Button>
           : <Button href={withBase('/support')} variant="light">Read the usage guide</Button>}
         <Button href={withBase('/privacy-policy')} variant="ghost-light">How your data is handled</Button>
       </div>
-      {!site.appStoreUrl && <p class="note">The App Store link will appear here once Litenly is listed.</p>}
     </div>
   </Container>
 </section>
@@ -26,5 +25,4 @@ import { site, withBase } from '../data/site';
   .cta :global(img) { margin-bottom: 1.5rem; filter: drop-shadow(0 12px 20px rgb(0 0 0 / 0.3)); }
   p { color: #dcebf0; max-width: 34rem; }
   .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 1rem; }
-  .note { font-size: 0.875rem; margin: 1.5rem 0 0; }
 </style>

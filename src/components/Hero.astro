@@ -12,7 +12,7 @@ import { site } from '../data/site';
     <div class="copy">
       <p class="pill">Photo and PDF compressor for iPhone</p>
       <h1>Lighter files.<br /><span>Simpler life.</span></h1>
-      <p class="lead">Litenly shrinks photos and PDFs right on your iPhone. Pick a quality or a size limit, compare the result with the original, then save or share it.</p>
+      <p class="lead">Litenly shrinks photos and PDFs right on your iPhone. Set a maximum file size, compare the result with the original, then save it.</p>
       <div class="actions">
         {site.appStoreUrl
           ? <Button href={site.appStoreUrl} variant="light">Download on the App Store</Button>
@@ -26,8 +26,8 @@ import { site } from '../data/site';
       </ul>
     </div>
     <div class="visual">
-      <PhoneFrame src={home} alt="Litenly home screen with Select Photo, Select from Files and Smart Gallery options" eager class="back" />
-      <PhoneFrame src={compare} alt="Litenly export preview comparing an original and a compressed waterfall photo with a sliding divider" eager class="front" />
+      <PhoneFrame src={home} alt="Litenly home screen with Select Photo, Select from Files, Images to PDF and Smart Gallery" eager class="back" />
+      <PhoneFrame src={compare} alt="Litenly result screen comparing an original and a compressed photo of pink flowers with a sliding divider" eager class="front" />
     </div>
   </Container>
 </section>

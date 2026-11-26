@@ -6,35 +6,37 @@ import FeatureCard from '../components/FeatureCard.astro';
 import PhoneFrame from '../components/PhoneFrame.astro';
 import Icon, { type IconName } from '../components/Icon.astro';
 import CTA from '../components/CTA.astro';
-import importShot from '../assets/screens/import.png';
 import editorShot from '../assets/screens/editor.png';
+import reviewShot from '../assets/screens/review.png';
 import compareShot from '../assets/screens/compare.png';
 import galleryShot from '../assets/screens/gallery.png';
+import pdfShot from '../assets/screens/pdf.png';
+import imagesPdfShot from '../assets/screens/images-pdf.png';
 import { site, withBase } from '../data/site';
 
 const features: { icon: IconName; title: string; text: string }[] = [
-  { icon: 'gauge', title: 'Quality you control', text: 'Choose Gentle, Balanced or Aggressive, or set the slider yourself. An estimate updates before you compress.' },
-  { icon: 'target', title: 'Optional size limit', text: 'Need a file under a set size? Enter a maximum in KB or MB. Litenly measures real encodes against your limit.' },
-  { icon: 'compare', title: 'Compare before saving', text: 'Slide between the original and the compressed version, zoom in, and check the measured file size.' },
-  { icon: 'file', title: 'Photos and PDFs', text: 'Open JPEG, PNG, HEIC and PDF files. Export as JPEG, PNG, HEIC (on supported devices) or PDF.' },
-  { icon: 'crop', title: 'Resize and crop', text: 'Keep the original resolution, fit within a longest edge, or set an exact width and height.' },
-  { icon: 'grid', title: 'Smart Gallery', text: 'Scan chosen photos or your full library to find what could take less space. Scanning changes nothing.' },
-  { icon: 'location', title: 'Metadata choices', text: 'Strip metadata and remove location data from single-image exports, or keep supported metadata.' },
-  { icon: 'history', title: 'History on your iPhone', text: 'Find recent compressions again, search them, and clear them whenever you like.' },
-  { icon: 'bell', title: 'Reminders and alerts', text: 'Optionally set clean-up reminders or a low-storage alert. They never compress or delete anything.' },
+  { icon: 'target', title: 'Maximum file size first', text: 'Start with a maximum file size, with a recommended value already suggested. Quality stays within it.' },
+  { icon: 'gauge', title: 'Quality you control', text: 'Choose Gentle, Balanced or Smallest, or fine-tune with the slider. Balanced is the default.' },
+  { icon: 'compare', title: 'Compare the result', text: 'The result screen puts the original and the compressed photo side by side.' },
+  { icon: 'crop', title: 'Resize and crop', text: 'Keep the original dimensions, fit within a size, or set exact dimensions with crop options.' },
+  { icon: 'file', title: 'Smaller PDFs', text: 'Selectable text is kept where rewriting the document makes it smaller.' },
+  { icon: 'file', title: 'Images to PDF and back', text: 'Put up to 30 pictures into one PDF, or turn PDF pages into JPEG, PNG or HEIC files.' },
+  { icon: 'grid', title: 'Smart Gallery', text: 'Choose photos or scan your full gallery. Scanning changes nothing.' },
+  { icon: 'history', title: 'History', text: 'Look back at your recent compressions, and use Clear All Data when you want a fresh start.' },
+  { icon: 'bell', title: 'Reminders and alerts', text: 'Turn on optional reminders or a low-storage alert. Both are local notifications.' },
 ];
 
 const steps = [
-  { title: 'Choose a file', text: 'Select a photo from your library, or open an image or PDF from Files.', shot: importShot, alt: 'Import screen showing a photo with its format, pixel dimensions and file size' },
-  { title: 'Set quality and size', text: 'Pick a quality preset. Add a size limit, new dimensions or another format if you need them.', shot: editorShot, alt: 'Editor screen with dimensions, format, estimated size and quality presets' },
-  { title: 'Compare and save', text: 'Check the result side by side, then save it to Files or Photos, or share it.', shot: compareShot, alt: 'Export preview with a slider comparing the original and compressed photo' },
+  { title: 'Set a maximum size', text: 'Choose a photo, then accept the recommended maximum or enter your own. Adjust quality, dimensions or format if you need to.', shot: editorShot, alt: 'Edit Image screen with the maximum file size set to the recommended 1.00 MB and a new size of 932 KB' },
+  { title: 'Choose how to save', text: 'For a library photo, pick Compressed copy or Replace original before compression starts.', shot: reviewShot, alt: 'Review screen offering Compressed copy or Replace original above the Start compression button' },
+  { title: 'Compare the result', text: 'Check the compressed photo against the original on the result screen.', shot: compareShot, alt: 'Result screen with a slider comparing the original and compressed photo of pink flowers' },
 ];
 
 const benefits = [
-  { title: 'Your files are processed on your iPhone', text: 'There is no account to create and no upload step. Litenly does not send your photos or documents to a server of ours.' },
-  { title: 'Your original stays safe', text: 'Compressing a single file creates a new one. The file you chose is not modified or replaced.' },
-  { title: 'Honest results', text: 'If a file cannot be made smaller with your settings, Litenly says so and suggests a fix. Nothing changes until you apply it.' },
-  { title: 'You approve every removal', text: 'In Smart Gallery, an original goes to Recently Deleted only after you review it, confirm, and approve the prompt from Photos.' },
+  { title: 'Nothing is uploaded', text: 'There is no account, no ads, no analytics and no upload step.' },
+  { title: 'Your original is removed only if you choose it', text: 'It goes only when you ask for that and approve Apple’s prompt. Deleted items go to Recently Deleted.' },
+  { title: 'Never a bigger photo', text: 'A compressed photo is never bigger than the original, and a size limit does not lower resolution on its own.' },
+  { title: 'You approve every removal', text: 'In Smart Gallery, originals are removed only after you review them, confirm, and approve Apple’s prompt.' },
 ];
 
 const jsonLd = {
@@ -55,7 +57,7 @@ const jsonLd = {
       <div class="section-head">
         <span class="eyebrow">Features</span>
         <h2>Everything you need to slim a file</h2>
-        <p>From one oversized photo to a crowded library.</p>
+        <p>For a single photo, a PDF or a crowded library.</p>
       </div>
       <div class="features">
         {features.map((f) => <FeatureCard icon={f.icon} title={f.title}>{f.text}</FeatureCard>)}
@@ -68,7 +70,7 @@ const jsonLd = {
       <div class="section-head">
         <span class="eyebrow">How it works</span>
         <h2>Three steps to a smaller file</h2>
-        <p>Open the app and start. No sign-up.</p>
+        <p>From a photo to a smaller file. No sign-up.</p>
       </div>
       <ol class="steps">
         {steps.map((s, i) => (
@@ -83,27 +85,46 @@ const jsonLd = {
     </Container>
   </section>
 
-  <section class="section" id="smart-gallery">
+  <section class="section" id="pdf">
     <Container class="showcase">
       <div>
-        <span class="eyebrow">Smart Gallery</span>
-        <h2>Find space hiding in your photo library</h2>
-        <p class="soft">Smart Gallery guides you from choosing photos to reviewing the result. It ignores videos.</p>
+        <span class="eyebrow">PDF tools</span>
+        <h2>Shrink, convert and build PDFs</h2>
         <ul class="checks">
-          <li><Icon name="check" /><span><strong>Scan first.</strong> See estimated savings before anything is written.</span></li>
-          <li><Icon name="check" /><span><strong>Make copies.</strong> Save smaller copies next to your originals, in the same format.</span></li>
-          <li><Icon name="check" /><span><strong>Or compress in place.</strong> A verified smaller replacement is saved, then you review the original before it moves to Recently Deleted.</span></li>
-          <li><Icon name="check" /><span><strong>PNG stays lossless.</strong> Pixels are checked to be identical, and results that are not smaller are skipped.</span></li>
+          <li><Icon name="check" /><span><strong>Compress a PDF.</strong> Documents with selectable text keep it where that makes them smaller. Scanned documents, and those a rewrite cannot shrink, become page pictures without selectable text.</span></li>
+          <li><Icon name="check" /><span><strong>PDF to images.</strong> Export all pages or a range as JPEG, PNG or HEIC, one file per page.</span></li>
+          <li><Icon name="check" /><span><strong>Images to PDF.</strong> Reorder up to 30 pictures and choose Fit image, A4 or US Letter pages.</span></li>
         </ul>
-        <p><a href={withBase('/support#smart-gallery-guide')}>Read the Smart Gallery guide</a></p>
+        <p><a href={withBase('/support#pdf-guide')}>Read the PDF guide</a></p>
       </div>
-      <div class="shot">
-        <PhoneFrame src={galleryShot} alt="Smart Gallery Select Photos screen with the steps Pick and scan, Choose plan, and Review" />
+      <div class="shot pair">
+        <PhoneFrame src={pdfShot} alt="PDF result screen showing a document reduced from 8.3 MB to 4.1 MB with its text kept" />
+        <PhoneFrame src={imagesPdfShot} alt="Images to PDF screen with four pictures that can be reordered" />
       </div>
     </Container>
   </section>
 
-  <section class="section alt" id="why">
+  <section class="section alt" id="smart-gallery">
+    <Container class="showcase">
+      <div>
+        <span class="eyebrow">Smart Gallery</span>
+        <h2>Find space hiding in your photo library</h2>
+        <p class="soft">Videos and Live Photos are not processed, and the scan does not download originals that are only in iCloud.</p>
+        <ul class="checks">
+          <li><Icon name="check" /><span><strong>Scan first.</strong> Choose photos or scan the full gallery. Scanning changes nothing.</span></li>
+          <li><Icon name="check" /><span><strong>Pick a method.</strong> Create Compressed Copies or Compress in Place.</span></li>
+          <li><Icon name="check" /><span><strong>Pick a quality.</strong> Gentle, Balanced or Aggressive.</span></li>
+          <li><Icon name="check" /><span><strong>Stay in control.</strong> Originals are removed only after review, confirmation and Apple’s own prompt.</span></li>
+        </ul>
+        <p><a href={withBase('/support#smart-gallery-guide')}>Read the Smart Gallery guide</a></p>
+      </div>
+      <div class="shot">
+        <PhoneFrame src={galleryShot} alt="Smart Gallery Scan Summary screen estimating a saving of about 5.8 MB" />
+      </div>
+    </Container>
+  </section>
+
+  <section class="section" id="why">
     <Container>
       <div class="section-head">
         <span class="eyebrow">Why Litenly</span>
@@ -132,12 +153,14 @@ const jsonLd = {
   .steps p { color: var(--ink-soft); max-width: 32ch; flex: 1; }
   .steps li :global(.phone) { max-width: 260px; margin-top: 1rem; }
   .num { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--brand); color: #fff; font-weight: 800; margin-bottom: 1rem; }
-  #smart-gallery :global(.showcase) { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 4rem; align-items: center; }
+  section :global(.showcase) { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 4rem; align-items: center; }
   .soft { color: var(--ink-soft); font-size: 1.075rem; }
   .checks { list-style: none; padding: 0; margin: 1.75rem 0; display: grid; gap: 1rem; }
   .checks li { display: flex; gap: 0.75rem; align-items: flex-start; }
   .checks :global(svg) { flex: none; color: var(--green); margin-top: 2px; }
   .shot { display: flex; justify-content: center; padding: 3rem 1.5rem; border-radius: var(--radius-l); background: var(--brand); }
+  .pair { gap: 1rem; align-items: center; padding-inline: 1rem; }
+  .pair :global(.phone) { flex: 1; min-width: 0; }
   .benefits { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem 4rem; }
   .benefits > div { border-top: 2px solid var(--line); padding-top: 1.5rem; }
   .benefits :global(svg) { color: var(--green); margin-bottom: 0.75rem; }
@@ -145,7 +168,7 @@ const jsonLd = {
   @media (max-width: 920px) {
     .features { grid-template-columns: repeat(2, 1fr); }
     .steps { grid-template-columns: 1fr; gap: 4rem; }
-    #smart-gallery :global(.showcase) { grid-template-columns: 1fr; gap: 2rem; }
+    section :global(.showcase) { grid-template-columns: 1fr; gap: 2rem; }
   }
   @media (max-width: 620px) {
     .features, .benefits { grid-template-columns: 1fr; }

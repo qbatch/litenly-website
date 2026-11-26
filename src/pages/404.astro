@@ -1,0 +1,24 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Container from '../components/Container.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Button from '../components/Button.astro';
+import { withBase } from '../data/site';
+---
+<MainLayout title="Page not found | Litenly" description="The page you asked for does not exist." noindex>
+  <PageHeader title="Page not found">
+    <p>The address may be wrong, or the page may have moved.</p>
+  </PageHeader>
+  <div class="section">
+    <Container narrow>
+      <div class="actions">
+        <Button href={withBase('/')}>Go to the home page</Button>
+        <a href={withBase('/support')}>Visit Support</a>
+      </div>
+    </Container>
+  </div>
+</MainLayout>
+
+<style>
+  .actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 1.5rem; }
+</style>
