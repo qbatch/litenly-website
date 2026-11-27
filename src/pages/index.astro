@@ -10,11 +10,6 @@ import editorShot from '../assets/screens/editor.png';
 import reviewShot from '../assets/screens/review.png';
 import compareShot from '../assets/screens/compare.png';
 import galleryShot from '../assets/screens/gallery.png';
-import galleryStartShot from '../assets/screens/gallery-start.png';
-import gallerySetupShot from '../assets/screens/gallery-setup.png';
-import galleryReviewShot from '../assets/screens/gallery-review.png';
-import galleryProgressShot from '../assets/screens/gallery-progress.png';
-import galleryDoneShot from '../assets/screens/gallery-done.png';
 import pdfShot from '../assets/screens/pdf.png';
 import imagesPdfShot from '../assets/screens/images-pdf.png';
 import { site, withBase } from '../data/site';
@@ -37,13 +32,14 @@ const steps = [
   { title: 'Compare the result', text: 'Check the compressed photo against the original on the result screen.', shot: compareShot, alt: 'Result screen with a slider comparing the original and compressed photo of pink flowers' },
 ];
 
-const gallerySteps = [
-  { title: 'Choose what to scan', text: 'Tap Scan Full Gallery for your whole library, or Choose photos to pick some. Videos are ignored.', shot: galleryStartShot, alt: 'Smart Gallery Select Photos screen with the Scan Full Gallery and Choose photos buttons' },
-  { title: 'See what you could save', text: 'The Scan Summary shows how many photos are eligible, their total size and the estimated saving.', shot: galleryShot, alt: 'Scan Summary showing 8 eligible photos and an estimated saving of about 12.2 MB' },
-  { title: 'Set your plan', text: 'Keep the recommended saving or set your own goal, then choose the quality and the method.', shot: gallerySetupShot, alt: 'Setup screen with saving goals, quality and method options' },
-  { title: 'Review every photo', text: 'Check the estimate for each photo and include or skip any of them before you start.', shot: galleryReviewShot, alt: 'Review Selection screen with 8 of 8 photos selected and the Create Compressed Copies button' },
-  { title: 'Compress them together', text: 'Litenly works through the whole selection and shows saved, skipped, failed and waiting counts. Keep the app open.', shot: galleryProgressShot, alt: 'Processing screen starting to compress 8 photos' },
-  { title: 'Check the results', text: 'When the run is done, review what was saved. Space is freed only after originals are removed.', shot: galleryDoneShot, alt: 'Processing screen showing 8 of 8 photos done and 8 saved' },
+// Shown around one screenshot: the first three sit on its left, the rest on its right.
+const callouts: { icon: IconName; title: string; text: string }[] = [
+  { icon: 'grid', title: 'Pick what to scan', text: 'Your full gallery, or only the photos you choose.' },
+  { icon: 'shield', title: 'Scanning changes nothing', text: 'Your library stays as it is while Litenly looks.' },
+  { icon: 'gauge', title: 'See the possible saving', text: 'Eligible photos, total size and an estimate.' },
+  { icon: 'target', title: 'Set your plan', text: 'Choose a saving goal, quality and method.' },
+  { icon: 'check', title: 'Review every photo', text: 'Include or skip any of them before you start.' },
+  { icon: 'compare', title: 'Compress them together', text: 'Follow saved, skipped and failed counts.' },
 ];
 
 const benefits = [
@@ -125,16 +121,19 @@ const jsonLd = {
         <h2>Compress your whole gallery in one run</h2>
         <p>Scan, choose a plan, review, and compress many photos together. Scanning changes nothing.</p>
       </div>
-      <ol class="steps">
-        {gallerySteps.map((s, i) => (
-          <li>
-            <span class="num" aria-hidden="true">{i + 1}</span>
-            <h3>{s.title}</h3>
-            <p>{s.text}</p>
-            <PhoneFrame src={s.shot} alt={s.alt} />
-          </li>
+      <div class="scan">
+        {[callouts.slice(0, 3), callouts.slice(3)].map((side, s) => (
+          <ol class:list={['callouts', s ? 'right' : 'left']} start={s * 3 + 1}>
+            {side.map((c) => (
+              <li>
+                <Icon name={c.icon} />
+                <div><h3>{c.title}</h3><p>{c.text}</p></div>
+              </li>
+            ))}
+          </ol>
         ))}
-      </ol>
+        <PhoneFrame src={galleryShot} alt="Smart Gallery Scan Summary showing 8 eligible photos and an estimated saving of about 12.2 MB" />
+      </div>
       <div class="after">
         <h3>Your originals, your decision</h3>
         <ul class="checks">
@@ -180,6 +179,25 @@ const jsonLd = {
   .num { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--brand); color: #fff; font-weight: 800; margin-bottom: 1rem; }
   section :global(.showcase) { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 4rem; align-items: center; }
   .after { max-width: 640px; margin: 3.5rem auto 0; }
+  .scan { display: grid; grid-template-columns: 1fr minmax(0, 300px) 1fr; grid-template-areas: 'left phone right'; gap: 2.5rem; align-items: center; }
+  .scan > :global(.phone) { grid-area: phone; }
+  .callouts { list-style: none; margin: 0; padding: 0; display: grid; gap: 3.5rem; }
+  .callouts.left { grid-area: left; }
+  .callouts.right { grid-area: right; }
+  .callouts li { position: relative; display: flex; gap: 0.85rem; padding: 1.1rem 1.25rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 18px 36px -20px rgb(8 20 50 / 0.35); }
+  /* The pointer that ties each message to the screenshot. */
+  .callouts li::after { content: ''; position: absolute; top: 50%; width: 14px; height: 14px; background: var(--surface); border: solid var(--line); transform: translateY(-50%) rotate(45deg); }
+  .left li::after { right: -8px; border-width: 1px 1px 0 0; }
+  .right li::after { left: -8px; border-width: 0 0 1px 1px; }
+  .callouts :global(svg) { flex: none; color: var(--green); margin-top: 2px; }
+  .callouts h3 { font-size: 1.05rem; margin-bottom: 0.25rem; }
+  .callouts p { color: var(--ink-soft); font-size: 0.925rem; line-height: 1.5; margin: 0; }
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .callouts li { animation: pop linear both; animation-timeline: view(); animation-range: entry 10% entry 100%; }
+    }
+  }
+  @keyframes pop { from { opacity: 0; scale: 0.7; } to { opacity: 1; scale: 1; } }
   .checks { list-style: none; padding: 0; margin: 1.75rem 0; display: grid; gap: 1rem; }
   .checks li { display: flex; gap: 0.75rem; align-items: flex-start; }
   .checks :global(svg) { flex: none; color: var(--green); margin-top: 2px; }
@@ -191,6 +209,9 @@ const jsonLd = {
   .benefits :global(svg) { color: var(--green); margin-bottom: 0.75rem; }
   .benefits p { color: var(--ink-soft); margin: 0; }
   @media (max-width: 920px) {
+    .scan { grid-template-columns: 1fr; grid-template-areas: 'phone' 'left' 'right'; gap: 1rem; justify-items: center; }
+    .callouts { gap: 1rem; width: min(100%, 460px); }
+    .callouts li::after { display: none; }
     .features { grid-template-columns: repeat(2, 1fr); }
     .steps { grid-template-columns: 1fr; gap: 4rem; }
     section :global(.showcase) { grid-template-columns: 1fr; gap: 2rem; }
