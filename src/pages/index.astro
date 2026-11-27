@@ -10,6 +10,8 @@ import editorShot from '../assets/screens/editor.png';
 import reviewShot from '../assets/screens/review.png';
 import compareShot from '../assets/screens/compare.png';
 import galleryShot from '../assets/screens/gallery.png';
+import galleryStartShot from '../assets/screens/gallery-start.png';
+import galleryBreakdownShot from '../assets/screens/gallery-breakdown.png';
 import pdfShot from '../assets/screens/pdf.png';
 import imagesPdfShot from '../assets/screens/images-pdf.png';
 import { site, withBase } from '../data/site';
@@ -30,6 +32,12 @@ const steps = [
   { title: 'Set a maximum size', text: 'Choose a photo, then accept the recommended maximum or enter your own. Adjust quality, dimensions or format if you need to.', shot: editorShot, alt: 'Edit Image screen with the maximum file size set to the recommended 1.00 MB and a new size of 932 KB' },
   { title: 'Choose how to save', text: 'For a library photo, pick Compressed copy or Replace original before compression starts.', shot: reviewShot, alt: 'Review screen offering Compressed copy or Replace original above the Start compression button' },
   { title: 'Compare the result', text: 'Check the compressed photo against the original on the result screen.', shot: compareShot, alt: 'Result screen with a slider comparing the original and compressed photo of pink flowers' },
+];
+
+const scanSteps = [
+  { title: 'Choose what to scan', text: 'Tap Choose photos to pick some, or Scan Full Gallery for your whole library. Videos are ignored.', shot: galleryStartShot, alt: 'Smart Gallery Select Photos screen with the Scan Full Gallery and Choose photos buttons' },
+  { title: 'See what you could save', text: 'The Scan Summary shows how many photos were scanned and are eligible, their total size and the estimated saving.', shot: galleryShot, alt: 'Smart Gallery Scan Summary screen estimating a saving of about 5.8 MB' },
+  { title: 'Check storage and formats', text: 'See free space on your iPhone and the estimated saving for each photo format, then continue to choose a plan.', shot: galleryBreakdownShot, alt: 'Scan Summary showing iPhone storage and estimated savings for JPEG and HEIC photos' },
 ];
 
 const benefits = [
@@ -105,21 +113,31 @@ const jsonLd = {
   </section>
 
   <section class="section alt" id="smart-gallery">
-    <Container class="showcase">
-      <div>
+    <Container>
+      <div class="section-head">
         <span class="eyebrow">Smart Gallery</span>
-        <h2>Find space hiding in your photo library</h2>
-        <p class="soft">Videos and Live Photos are not processed, and the scan does not download originals that are only in iCloud.</p>
+        <h2>Scan your library and find space to save</h2>
+        <p>A scan changes nothing. It shows estimated savings before you decide what to do.</p>
+      </div>
+      <ol class="steps">
+        {scanSteps.map((s, i) => (
+          <li>
+            <span class="num" aria-hidden="true">{i + 1}</span>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+            <PhoneFrame src={s.shot} alt={s.alt} />
+          </li>
+        ))}
+      </ol>
+      <div class="after">
+        <h3>After the scan</h3>
         <ul class="checks">
-          <li><Icon name="check" /><span><strong>Scan first.</strong> Choose photos or scan the full gallery. Scanning changes nothing.</span></li>
           <li><Icon name="check" /><span><strong>Pick a method.</strong> Create Compressed Copies or Compress in Place.</span></li>
           <li><Icon name="check" /><span><strong>Pick a quality.</strong> Gentle, Balanced or Aggressive.</span></li>
           <li><Icon name="check" /><span><strong>Stay in control.</strong> Originals are removed only after review, confirmation and Apple’s own prompt.</span></li>
         </ul>
+        <p>Live Photos are not processed, and the scan does not download originals that are only in iCloud.</p>
         <p><a href={withBase('/support#smart-gallery-guide')}>Read the Smart Gallery guide</a></p>
-      </div>
-      <div class="shot">
-        <PhoneFrame src={galleryShot} alt="Smart Gallery Scan Summary screen estimating a saving of about 5.8 MB" />
       </div>
     </Container>
   </section>
@@ -154,7 +172,7 @@ const jsonLd = {
   .steps li :global(.phone) { max-width: 260px; margin-top: 1rem; }
   .num { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--brand); color: #fff; font-weight: 800; margin-bottom: 1rem; }
   section :global(.showcase) { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 4rem; align-items: center; }
-  .soft { color: var(--ink-soft); font-size: 1.075rem; }
+  .after { max-width: 640px; margin: 3.5rem auto 0; }
   .checks { list-style: none; padding: 0; margin: 1.75rem 0; display: grid; gap: 1rem; }
   .checks li { display: flex; gap: 0.75rem; align-items: flex-start; }
   .checks :global(svg) { flex: none; color: var(--green); margin-top: 2px; }
