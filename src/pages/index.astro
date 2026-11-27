@@ -11,7 +11,10 @@ import reviewShot from '../assets/screens/review.png';
 import compareShot from '../assets/screens/compare.png';
 import galleryShot from '../assets/screens/gallery.png';
 import galleryStartShot from '../assets/screens/gallery-start.png';
-import galleryBreakdownShot from '../assets/screens/gallery-breakdown.png';
+import gallerySetupShot from '../assets/screens/gallery-setup.png';
+import galleryReviewShot from '../assets/screens/gallery-review.png';
+import galleryProgressShot from '../assets/screens/gallery-progress.png';
+import galleryDoneShot from '../assets/screens/gallery-done.png';
 import pdfShot from '../assets/screens/pdf.png';
 import imagesPdfShot from '../assets/screens/images-pdf.png';
 import { site, withBase } from '../data/site';
@@ -34,10 +37,13 @@ const steps = [
   { title: 'Compare the result', text: 'Check the compressed photo against the original on the result screen.', shot: compareShot, alt: 'Result screen with a slider comparing the original and compressed photo of pink flowers' },
 ];
 
-const scanSteps = [
-  { title: 'Choose what to scan', text: 'Tap Choose photos to pick some, or Scan Full Gallery for your whole library. Videos are ignored.', shot: galleryStartShot, alt: 'Smart Gallery Select Photos screen with the Scan Full Gallery and Choose photos buttons' },
-  { title: 'See what you could save', text: 'The Scan Summary shows how many photos were scanned and are eligible, their total size and the estimated saving.', shot: galleryShot, alt: 'Smart Gallery Scan Summary screen estimating a saving of about 5.8 MB' },
-  { title: 'Check storage and formats', text: 'See free space on your iPhone and the estimated saving for each photo format, then continue to choose a plan.', shot: galleryBreakdownShot, alt: 'Scan Summary showing iPhone storage and estimated savings for JPEG and HEIC photos' },
+const gallerySteps = [
+  { title: 'Choose what to scan', text: 'Tap Scan Full Gallery for your whole library, or Choose photos to pick some. Videos are ignored.', shot: galleryStartShot, alt: 'Smart Gallery Select Photos screen with the Scan Full Gallery and Choose photos buttons' },
+  { title: 'See what you could save', text: 'The Scan Summary shows how many photos are eligible, their total size and the estimated saving.', shot: galleryShot, alt: 'Scan Summary showing 8 eligible photos and an estimated saving of about 12.2 MB' },
+  { title: 'Set your plan', text: 'Keep the recommended saving or set your own goal, then choose the quality and the method.', shot: gallerySetupShot, alt: 'Setup screen with saving goals, quality and method options' },
+  { title: 'Review every photo', text: 'Check the estimate for each photo and include or skip any of them before you start.', shot: galleryReviewShot, alt: 'Review Selection screen with 8 of 8 photos selected and the Create Compressed Copies button' },
+  { title: 'Compress them together', text: 'Litenly works through the whole selection and shows saved, skipped, failed and waiting counts. Keep the app open.', shot: galleryProgressShot, alt: 'Processing screen starting to compress 8 photos' },
+  { title: 'Check the results', text: 'When the run is done, review what was saved. Space is freed only after originals are removed.', shot: galleryDoneShot, alt: 'Processing screen showing 8 of 8 photos done and 8 saved' },
 ];
 
 const benefits = [
@@ -116,11 +122,11 @@ const jsonLd = {
     <Container>
       <div class="section-head">
         <span class="eyebrow">Smart Gallery</span>
-        <h2>Scan your library and find space to save</h2>
-        <p>A scan changes nothing. It shows estimated savings before you decide what to do.</p>
+        <h2>Compress your whole gallery in one run</h2>
+        <p>Scan, choose a plan, review, and compress many photos together. Scanning changes nothing.</p>
       </div>
       <ol class="steps">
-        {scanSteps.map((s, i) => (
+        {gallerySteps.map((s, i) => (
           <li>
             <span class="num" aria-hidden="true">{i + 1}</span>
             <h3>{s.title}</h3>
@@ -130,10 +136,11 @@ const jsonLd = {
         ))}
       </ol>
       <div class="after">
-        <h3>After the scan</h3>
+        <h3>Your originals, your decision</h3>
         <ul class="checks">
-          <li><Icon name="check" /><span><strong>Pick a method.</strong> Create Compressed Copies or Compress in Place.</span></li>
-          <li><Icon name="check" /><span><strong>Pick a quality.</strong> Gentle, Balanced or Aggressive.</span></li>
+          <li><Icon name="check" /><span><strong>Create Compressed Copies.</strong> Smaller copies are added to your library and your originals are not changed.</span></li>
+          <li><Icon name="check" /><span><strong>Compress in Place.</strong> Smaller replacements are saved, and you decide whether the originals go.</span></li>
+          <li><Icon name="check" /><span><strong>Three quality levels.</strong> Gentle, Balanced or Aggressive.</span></li>
           <li><Icon name="check" /><span><strong>Stay in control.</strong> Originals are removed only after review, confirmation and Apple’s own prompt.</span></li>
         </ul>
         <p>Live Photos are not processed, and the scan does not download originals that are only in iCloud.</p>
